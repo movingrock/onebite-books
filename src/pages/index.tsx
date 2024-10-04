@@ -9,23 +9,18 @@ import fetchRandomBooks from "@/lib/fetch-random-books";
 
 export const getStaticProps = async () => {
   console.log("인덱스 페이지");
-  const [allBooks, recoBooks] = await Promise.all([
-    fetchBooks(),
-    fetchRandomBooks(),
-  ]);
+  const [allBooks, recoBooks] = await Promise.all([fetchBooks(), fetchRandomBooks()]);
 
   return {
     props: {
       allBooks,
       recoBooks,
     },
+    revalidate: 3,
   };
 };
 
-export default function Home({
-  allBooks,
-  recoBooks,
-}: InferGetStaticPropsType<typeof getStaticProps>) {
+export default function Home({ allBooks, recoBooks }: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
     <div className={style.container}>
       <section>
